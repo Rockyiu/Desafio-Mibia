@@ -75,7 +75,7 @@ def identificar_e_renomear_arquivo(filepath):
         # Limpa o nome da empresa para evitar caracteres inválidos em nomes de arquivo
         empresa_limpa = re.sub(r'[^\w\s-]', '', empresa).replace(' ', '_')
         novo_nome = f"{hoje}_{empresa_limpa}_{tipo}.{extensao}"
-        return novo_nome, tipo, "Sucesso", ""  # <-- Adicionamos o 'tipo' aqui
+        return novo_nome, tipo, "Sucesso", ""  
         
     except Exception as e:
         return None, None, "Erro", str(e)
