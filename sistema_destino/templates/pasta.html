@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pasta {{ nome_pasta }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; text-align: center; padding-top: 50px; }
+        .upload-box { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        .btn-upload { background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 20px;}
+        .success-msg { color: #28a745; font-weight: bold; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="upload-box">
+        <h1 style="color: #333;">Diretório: /{{ nome_pasta }}</h1>
+        <a href="/dashboard" style="color: #0056b3; text-decoration: none;">&larr; Voltar para Dashboard</a><br><br>
+        
+        {% if sucesso %}
+            <p class="success-msg">✅ Arquivo processado e salvo com sucesso!</p>
+        {% endif %}
+
+        <button class="btn-upload" onclick="document.getElementById('form-upload').style.display='block'">Fazer Upload Aqui</button>
+        
+        <form id="form-upload" method="POST" enctype="multipart/form-data" style="display:none; margin-top: 20px;">
+            <input type="file" name="arquivo">
+            <button type="submit" id="enviar" style="background: #0056b3; color: white; border: none; padding: 8px; border-radius: 4px; cursor: pointer;">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Empresa Exemplo</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .header { background: #0056b3; color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;}
+        .folder-grid { display: flex; gap: 20px; justify-content: center; }
+        .folder-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; width: 200px; text-decoration: none; color: #333; font-weight: bold; border: 2px solid transparent;}
+        .folder-card:hover { border-color: #0056b3; }
+        .icon { font-size: 40px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Dashboard - Diretórios da Empresa</h1>
+    </div>
+    <div class="folder-grid">
+        <a href="/pasta/XML" id="link-xml" class="folder-card"><div class="icon">📄</div>Pasta /XML</a>
+        <a href="/pasta/NF" id="link-nf" class="folder-card"><div class="icon">🧾</div>Pasta /NF</a>
+        <a href="/pasta/Extratos" id="link-extratos" class="folder-card"><div class="icon">🏦</div>Pasta /Extratos</a>
+    </div>
+</body>
+</html>
