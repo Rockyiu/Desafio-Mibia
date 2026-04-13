@@ -40,8 +40,7 @@ def identificar_e_renomear_arquivo(filepath):
         if extensao == 'xml':
             tree = ET.parse(filepath)
             root = tree.getroot()
-            # O XML de NF-e costuma usar namespaces, essa busca é mais robusta:
-            # Aqui buscamos a tag <xNome> dentro de <emit>
+            # Busca a tag <xNome> dentro de <emit>
             for emit in root.iter():
                 if 'xNome' in emit.tag:
                     empresa = emit.text
@@ -117,26 +116,26 @@ def fazer_upload_web(caminho_arquivo, tipo_arquivo):
         except Exception as e:
             return False, f"Erro Web: {str(e)}"
 
-# --- AQUI ESTÁ O "MOTOR" QUE ESTAVA FALTANDO ---
+
 if __name__ == "__main__":
-    print("🤖 Iniciando o Robô MIBIA...")
+    print("Iniciando o Robô MIBIA...")
     
     # Cria as pastas se elas não existirem
     os.makedirs(INPUT_DIR, exist_ok=True)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    # Conecta no banco de dados (isso vai resolver o erro do Streamlit!)
+    # Conecta no banco de dados 
     conn = conectar_banco()
     cursor = conn.cursor()
 
     arquivos = os.listdir(INPUT_DIR)
 
     if not arquivos:
-        print(f"⚠️ Nenhum arquivo encontrado na pasta '{INPUT_DIR}'. Coloque arquivos lá antes de rodar!")
+        print(f" Nenhum arquivo encontrado na pasta '{INPUT_DIR}'. Coloque arquivos lá antes de rodar!")
     else:
         for arquivo in arquivos:
             caminho_original = os.path.join(INPUT_DIR, arquivo)
-            print(f"\n📄 Processando: {arquivo}...")
+            print(f"\n Processando: {arquivo}...")
 
             # 1. Renomear e Mover
             novo_nome, tipo, status_renomeio, erro = identificar_e_renomear_arquivo(caminho_original)
@@ -146,18 +145,18 @@ if __name__ == "__main__":
                 shutil.move(caminho_original, caminho_novo) # Move para a pasta 'processados'
                 
                 # 2. Upload Automático no Navegador
-                print(f"🌐 Iniciando navegador para upload de {novo_nome}...")
+                print(f"Iniciando navegador para upload de {novo_nome}...")
                 sucesso_upload, erro_upload = fazer_upload_web(caminho_novo, tipo)
                 
                 if sucesso_upload:
                     status_final, mensagem = "Sucesso", "Upload concluído"
-                    print("✅ Upload feito com sucesso!")
+                    print("Upload feito com sucesso!")
                 else:
                     status_final, mensagem = "Erro", erro_upload
-                    print("❌ Erro no upload.")
+                    print("Erro no upload.")
             else:
                 novo_nome, status_final, mensagem = "N/A", "Erro", erro
-                print("❌ Erro ao ler/renomear.")
+                print("Erro ao ler/renomear.")
 
             # 3. Salvar no Banco
             data_hora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -168,4 +167,4 @@ if __name__ == "__main__":
             conn.commit()
 
     conn.close()
-    print("\n🏁 Processo do robô finalizado!")
+    print("\n Processo do robô finalizado!")
